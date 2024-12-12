@@ -120,11 +120,11 @@ $result = mysqli_query($con, $query);
                     die("failed to connect!");
                 }
                 // SQL query to retrieve data from the students table
-                $sql = "SELECT regno, make, YOM, enginecc, transmission, fuel FROM cars ORDER BY id";
+                $sql = "SELECT regno, make, YOM, enginecc, transmission, fuel,price FROM cars ORDER BY id";
                 $result = $conn->query($sql);
                 // Display data in a table
                 if ($result->num_rows > 0) {
-                     echo '<div class="table-responsive">';
+                    echo '<div class="table-responsive">';
                     echo "<table class='table table-bordered table-striped'>
                         <tr>
                             <th>#</th>
@@ -134,6 +134,7 @@ $result = mysqli_query($con, $query);
                             <th>Engine CC</th>
                             <th>Transmission</th>
                             <th>Fuel</th>
+                            <th>Price</th>
                             <th>Actions</th>
                         </tr>";
                     $counter = 1; // Counter variable
@@ -146,6 +147,7 @@ $result = mysqli_query($con, $query);
                             <td>{$row['enginecc']}</td>
                             <td>{$row['transmission']}</td>
                             <td>{$row['fuel']}</td>
+                            <td>{$row['price']}</td>
                             <td>
                                 <form action='deletecar.php' method='post' onsubmit=\"return confirm('Are you sure you want to delete this car?');\">
                                     <input type='hidden' name='regno' value='{$row['regno']}'>
@@ -169,13 +171,13 @@ $result = mysqli_query($con, $query);
 
 
             </div>
-            
-    <?php
-    if (isset($_SESSION['message'])) {
-        echo "<div class='alert alert-info'>{$_SESSION['message']}</div>";
-        unset($_SESSION['message']);
-    }
-    ?>
+
+            <?php
+            if (isset($_SESSION['message'])) {
+                echo "<div class='alert alert-info'>{$_SESSION['message']}</div>";
+                unset($_SESSION['message']);
+            }
+            ?>
 
 
         </div>

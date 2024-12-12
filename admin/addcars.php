@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $enginecc = $_POST['enginecc'];
     $transmission = $_POST['transmission'];
     $fuel = $_POST['fuel'];
+    $price = $_POST['price'];
 
     // Handle file upload
     $targetDirectory = "uploads/";
@@ -21,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $uploadOk = 1;
 
     if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $targetFile)) {
-        $query = "INSERT INTO cars (regno, make, YOM, enginecc, transmission, fuel, profile_image)
-                  VALUES ('$regno','$make', '$YOM', '$enginecc', '$transmission', '$fuel', '$targetFile')";
+        $query = "INSERT INTO cars (regno, make, YOM, enginecc, transmission, fuel, price, profile_image)
+                  VALUES ('$regno','$make', '$YOM', '$enginecc', '$transmission', '$fuel','$price', '$targetFile')";
 
         if (mysqli_query($con, $query)) {
             $message = "Registration successful";
@@ -233,6 +234,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                         <!-- Add more options as needed -->
                                     </select>
 
+                                    <label for="price">Price:</label>
+                                    <input type="text" id="price" name="price" required>
 
                                     <label for="profileImage">Profile Image: </label>
                                     <input type="file" name="profileImage" id="profileImage" accept="image/*">

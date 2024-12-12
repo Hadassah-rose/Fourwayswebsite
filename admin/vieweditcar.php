@@ -120,7 +120,7 @@ $result = mysqli_query($con, $query);
                     die("failed to connect!");
                 }
                 // SQL query to retrieve data from the students table
-                $sql = "SELECT regno, make, YOM, enginecc, transmission, fuel FROM cars ORDER BY id";
+                $sql = "SELECT regno, make, YOM, enginecc, transmission, fuel, price FROM cars ORDER BY id";
                 $result = $conn->query($sql);
                 // Display data in a table
                 
@@ -135,6 +135,7 @@ $result = mysqli_query($con, $query);
                         <th>Engine CC</th>
                         <th>Transmission</th>
                         <th>Fuel</th>
+                        <th>Price</th>
                         <th>Actions</th>
                     </tr>";
                     $counter = 1;
@@ -147,6 +148,7 @@ $result = mysqli_query($con, $query);
                         <td>{$row['enginecc']}</td>
                         <td>{$row['transmission']}</td>
                         <td>{$row['fuel']}</td>
+                        <td>{$row['price']}</td>
                         <td><a href='editcar.php?id={$row['regno']}' class='btn btn-primary'>Edit</a></td>
                         </tr>";
                         $counter++;

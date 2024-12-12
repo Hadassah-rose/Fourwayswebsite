@@ -1,3 +1,11 @@
+<?php
+// Include the database connection
+include("connection.php");
+
+// Fetch data from the `admins` table
+$sql = "SELECT make, YOM, enginecc, transmission, fuel, price, profile_image FROM cars";
+$result = $con->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +36,52 @@
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .grid-item .details {
+            padding: 15px;
+        }
+
+        .grid-item .details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .grid-item .details .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #007BFF;
+        }
+    </style>
 
 </head>
 
@@ -62,8 +116,34 @@
     <main class="main">
 
 
+        <div class="grid-container">
+            <?php if ($result->num_rows > 0): ?>
+                <?php while ($regno = $result->fetch_assoc()): ?>
+                    <div class="grid-item">
+                        <img src="../admin/uploads/<?= htmlspecialchars($regno['profile_image']) ?>"
+                            alt="<?= htmlspecialchars($regno['make']) ?>">
+
+                        <div class="details">
+                            <p><strong>Make:</strong> <?= htmlspecialchars($regno['make']) ?></p>
+                            <p><strong>Year:</strong> <?= htmlspecialchars($regno['YOM']) ?></p>
+                            <p><strong>Engine CC:</strong> <?= htmlspecialchars($regno['enginecc']) ?>cc</p>
+                            <p><strong>Transmission:</strong> <?= htmlspecialchars($regno['transmission']) ?></p>
+                            <p><strong>Fuel:</strong> <?= htmlspecialchars($regno['fuel']) ?></p>
+                            <p class="price"><strong>Price:</strong> $<?= htmlspecialchars($regno['price']) ?></p>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No vehicles found.</p>
+            <?php endif; ?>
+        </div>
+
+
+
 
     </main>
+
+    <br><br><br>
 
     <footer id="footer" class="footer dark-background">
 
@@ -114,3 +194,7 @@
 </body>
 
 </html>
+<?php
+// Close the database connection
+$con->close();
+?>

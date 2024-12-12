@@ -33,11 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $enginecc = $_POST['enginecc'];
     $transmission = $_POST['transmission'];
     $fuel = $_POST['fuel'];
+    $price = $_POST['price'];
 
     // Update car details
-    $update_query = "UPDATE cars SET  make = ?, YOM = ?, enginecc = ?, transmission = ?, fuel = ? WHERE regno = ?";
+    $update_query = "UPDATE cars SET  make = ?, YOM = ?, enginecc = ?, transmission = ?, fuel = ?, price = ? WHERE regno = ?";
     $stmt = $con->prepare($update_query);
-    $stmt->bind_param("ssssss", $make, $YOM, $enginecc, $transmission, $fuel, $regno);
+    $stmt->bind_param("sssssss", $make, $YOM, $enginecc, $transmission, $fuel, $price, $regno);
 
 
     if ($stmt->execute()) {
@@ -174,6 +175,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label for="fuel">Fuel:</label>
                             <input type="text" class="form-control" id="fuel" name="fuel"
                                 value="<?= htmlspecialchars($car['fuel']) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">price:</label>
+                            <input type="text" class="form-control" id="price" name="price"
+                                value="<?= htmlspecialchars($car['price']) ?>" required>
                         </div>
                         <button type="submit" class="btn btn-success">Update</button>
                         <a href="vieweditcar.php" class="btn btn-danger">Cancel</a>
